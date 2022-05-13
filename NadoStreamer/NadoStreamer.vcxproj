@@ -139,9 +139,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="1.main.cpp" />
-    <ClCompile Include="2.GAMELoop.cpp" />
-    <ClCompile Include="3.ONAIRLoop.cpp" />
+    <ClCompile Include="1.main.c" />
+    <ClCompile Include="2.GAMELoop.c" />
+    <ClCompile Include="3.ONAIRLoop.c" />
+    <ClCompile Include="console.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GAME.h" />
