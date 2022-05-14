@@ -10,6 +10,30 @@ void gotoxy(int x, int y)
 
 }
 
+int Renewer_Chat(, FILE* fp)
+{
+	int cnt = 0;
+	char str[20][128] = { 0 };
+	fgets(str, sizeof(str), fp);
+
+
+
+	for (int i = 0; i < 20; i++)
+	{
+		if (!strcmp(str[i], " "))
+		{
+			continue;
+		}
+		gotoxy(136, 22 - i);
+		printf("                                       ");
+	}
+	gotoxy(136, 22 - cnt);
+	printf("%s", str[cnt]);
+
+	cnt++;
+}
+
+
 int ONAIR_Day(int* i_Day, int* cnt1)
 {
 	if (*cnt1 == 0)
@@ -26,10 +50,10 @@ int ONAIR_Day(int* i_Day, int* cnt1)
 int ONAIR_Viewer_Loop(int* i_Inc_View, int* i_Dec_View, int* i_Now_View, int* i_All_View, int* i_Day)
 {
 	srand((unsigned)time(NULL));
-	
+
 	int diff = 100 * (*i_Day - 1);
 	int V_Time = 5000 - diff;
-	
+
 
 
 	static int NewTime = 0;
@@ -37,7 +61,7 @@ int ONAIR_Viewer_Loop(int* i_Inc_View, int* i_Dec_View, int* i_Now_View, int* i_
 
 	NewTime = clock();
 
-	
+
 
 	if (NewTime - OldTime < V_Time)
 	{
@@ -61,7 +85,6 @@ int ONAIR_Chat_Loop(int* i_Day, FILE* fp, int* cnt2)
 {
 	int diff = 100 * (*i_Day - 1);
 	int C_Time = 10000 - diff;
-	char str[256] = { 0 };
 	static int NewTime = 0;
 	static int OldTime = 0;
 
@@ -72,9 +95,8 @@ int ONAIR_Chat_Loop(int* i_Day, FILE* fp, int* cnt2)
 		return 1;
 	}
 	OldTime = NewTime;
-	fgets(str, sizeof(str), fp);
 	gotoxy(136, 22 - (*cnt2));
-	printf("%s", str);
+
 	(*cnt2)++;
 
 	return (*cnt2);
