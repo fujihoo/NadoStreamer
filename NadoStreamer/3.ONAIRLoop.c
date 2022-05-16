@@ -1,5 +1,7 @@
 #include "ONAIR.h"
 
+char* str[20][128];
+
 void gotoxy(int x, int y)
 
 {
@@ -10,29 +12,81 @@ void gotoxy(int x, int y)
 
 }
 
-int Renewer_Chat(, FILE* fp)
+int Renewer_chat(FILE* fp)
 {
-	int cnt = 0;
-	char str[20][128] = { 0 };
-	fgets(str, sizeof(str), fp);
+	int i;
 
-
-
-	for (int i = 0; i < 20; i++)
+	for (i = 19; i > 0; --i)
 	{
-		if (!strcmp(str[i], " "))
+		if (str[i] == NULL)
 		{
 			continue;
 		}
+		strcpy(str[i], str[i - 1]);
 		gotoxy(136, 22 - i);
-		printf("                                       ");
+		printf("                                                                   ");
+		gotoxy(136, 22 - i);
+		printf("%s", str[i]);
 	}
-	gotoxy(136, 22 - cnt);
-	printf("%s", str[cnt]);
 
-	cnt++;
+	fgets(str[0], sizeof(str[0]), fp);
+
+	gotoxy(136, 22);
+	printf("                                                              ");
+	gotoxy(136, 22);
+	printf("%s", str[0]);
+
+	return i;
 }
 
+//int Renewer_chat(FILE* fp)
+//{
+//	char* str[20][128] = { " " };
+//	int i;
+//	int j;
+//
+//	fgets(str, sizeof(str), fp);
+//	for (i = 0; i < 19; i++)
+//	{
+//		if (!strcmp(str[i], " "))
+//		{
+//			continue;
+//		}
+//		strcpy(str[0], fscanf(fp, str));
+//		strcpy(str[i + 1], str[i]);
+//		for (j = 0; j < 20; j++)
+//		{
+//			gotoxy(136, 22 - j);
+//			printf("                                                              ");
+//		}
+//		gotoxy(136, 22 - i);
+//		printf("%s", str[i]);
+//	}
+//}
+
+//int Renewer_Chat(int* cnt, FILE* fp)
+//{
+//	*cnt = 0;
+//	char str[20][128] = { 0 };
+//
+//	for (int i = 0; i < 20; i++)
+//	{
+//		if (!strcmp(str[i], " "))
+//		{
+//			continue;
+//		}
+//		gotoxy(136, 2 + i);
+//		printf("                                       ");
+//	}
+//	if (*cnt >= 18)
+//	{
+//		return (*cnt);
+//	}
+//	gotoxy(136, 2 + *cnt);
+//	str[*cnt + 1][127] = str[*cnt][127];
+//	str[0][127] = fgets(str, sizeof(str), fp);
+//	printf("%s", *str);
+//}
 
 int ONAIR_Day(int* i_Day, int* cnt1)
 {
@@ -81,7 +135,7 @@ int ONAIR_Viewer_Loop(int* i_Inc_View, int* i_Dec_View, int* i_Now_View, int* i_
 	}
 }
 
-int ONAIR_Chat_Loop(int* i_Day, FILE* fp, int* cnt2)
+int ONAIR_Chat_Loop(int* i_Day, FILE* fp)
 {
 	int diff = 100 * (*i_Day - 1);
 	int C_Time = 10000 - diff;
@@ -95,11 +149,9 @@ int ONAIR_Chat_Loop(int* i_Day, FILE* fp, int* cnt2)
 		return 1;
 	}
 	OldTime = NewTime;
-	gotoxy(136, 22 - (*cnt2));
-
-	(*cnt2)++;
-
-	return (*cnt2);
+	Renewer_chat(fp);
+	/**cnt = Renewer_Chat(*cnt2, fp);
+	(*cnt)++;*/
 }
 
 int ONAIR_Dona_Loop(int* i_Dona, int* i_Now_Dona, int* i_All_Dona, int* i_Day)
@@ -131,4 +183,25 @@ int ONAIR_Dona_Loop(int* i_Dona, int* i_Now_Dona, int* i_All_Dona, int* i_Day)
 	Sleep(3000);
 	gotoxy(150, 1);
 	printf("                                                  ");
+}
+
+int image(int* cnt2, FILE* fp2)
+{
+	if (*cnt2 == 0)
+	{
+		fp2 = fopen("image.txt", "r");
+		for (int i = 0; i < 25; i++)
+		{
+			char ASCII[30][128];
+			gotoxy(150, 25 + i);
+			fgets(ASCII[i], sizeof(ASCII[i]), fp2);
+			printf("%s", ASCII[i]);
+		}
+	}
+	else
+	{
+		return 1;
+	}
+	(*cnt2)++;
+	return (*cnt2);
 }

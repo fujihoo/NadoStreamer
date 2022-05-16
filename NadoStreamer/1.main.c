@@ -5,8 +5,9 @@ int Opening();
 int GAME_Loop();
 int ONAIR_Day(int *, int *);
 int ONAIR_Viewer_Loop(int *, int *, int *, int *, int *);
-int ONAIR_Chat_Loop(int *, FILE *, int *);
+int ONAIR_Chat_Loop(int *, FILE *);
 int ONAIR_Dona_Loop(int *, int *, int *, int *);
+int image(int *, FILE *);
 
 int main(void)
 {
@@ -24,7 +25,6 @@ int main(void)
 	int cnt1 = 0;
 	int cnt2 = 0;
 
-	FILE* fp;
 	fp = fopen("a.txt", "r");
 
 	for (int i = 0; i < 20; i++)
@@ -45,9 +45,10 @@ int main(void)
 				}
 			}
 			cnt1 = ONAIR_Day(&i_day, &cnt1);
+			cnt2 = image(&cnt2, fp2);
 			ONAIR_Viewer_Loop(&i_inc_view, &i_dec_view, &i_now_view, &i_all_view, &i_day);
-			cnt2 = ONAIR_Chat_Loop(&i_day, fp, &cnt2);
+			ONAIR_Chat_Loop(&i_day, fp);
 			ONAIR_Dona_Loop(&i_dona, &i_now_dona, &i_all_dona, &i_day);
-		}
+ 		}
 	}
 }
