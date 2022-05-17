@@ -7,7 +7,7 @@ int ONAIR_Day(int *, int *);
 int ONAIR_Viewer_Loop(int *, int *, int *, int *, int *);
 int ONAIR_Chat_Loop(int *, FILE *);
 int ONAIR_Dona_Loop(int *, int *, int *, int *);
-int image(int *, FILE *);
+int ONAIR_Image(int *, FILE *);
 
 int main(void)
 {
@@ -52,7 +52,7 @@ int main(void)
 				}
 			}
 			cnt1 = ONAIR_Day(&i_day, &cnt1);
-			cnt2 = image(&cnt2, fp2);
+			cnt2 = ONAIR_Image(&cnt2, fp2);
 			if (!(ONAIR_Viewer_Loop(&i_inc_view, &i_dec_view, &i_now_view, &i_all_view, &i_day)))
 			{
 				continue;

@@ -20,67 +20,18 @@ void Renewer_chat(FILE* fp)
 			continue;
 		}
 		strcpy(str[i], str[i - 1]);
-		gotoxy(136, 22 - i);
+		gotoxy(132, 22 - i);
 		printf("                                                                   ");
-		gotoxy(136, 22 - i);
+		gotoxy(132, 22 - i);
 		printf("%s", str[i]);
 	}
 	fgets(str[0], sizeof(str[0]), fp);
 
-	gotoxy(136, 22);
+	gotoxy(132, 22);
 	printf("                                                              ");
-	gotoxy(136, 22);
+	gotoxy(132, 22);
 	printf("%s", str[0]);
 }
-
-//int Renewer_chat(FILE* fp)
-//{
-//	char* str[20][128] = { " " };
-//	int i;
-//	int j;
-//
-//	fgets(str, sizeof(str), fp);
-//	for (i = 0; i < 19; i++)
-//	{
-//		if (!strcmp(str[i], " "))
-//		{
-//			continue;
-//		}
-//		strcpy(str[0], fscanf(fp, str));
-//		strcpy(str[i + 1], str[i]);
-//		for (j = 0; j < 20; j++)
-//		{
-//			gotoxy(136, 22 - j);
-//			printf("                                                              ");
-//		}
-//		gotoxy(136, 22 - i);
-//		printf("%s", str[i]);
-//	}
-//}
-
-//int Renewer_Chat(int* cnt, FILE* fp)
-//{
-//	*cnt = 0;
-//	char str[20][128] = { 0 };
-//
-//	for (int i = 0; i < 20; i++)
-//	{
-//		if (!strcmp(str[i], " "))
-//		{
-//			continue;
-//		}
-//		gotoxy(136, 2 + i);
-//		printf("                                       ");
-//	}
-//	if (*cnt >= 18)
-//	{
-//		return (*cnt);
-//	}
-//	gotoxy(136, 2 + *cnt);
-//	str[*cnt + 1][127] = str[*cnt][127];
-//	str[0][127] = fgets(str, sizeof(str), fp);
-//	printf("%s", *str);
-//}
 
 int ONAIR_Day(int* i_Day, int* cnt1)
 {
@@ -116,10 +67,10 @@ int ONAIR_Viewer_Loop(int* i_Inc_View, int* i_Dec_View, int* i_Now_View, int* i_
 		return 1;
 	}
 	OldTime = NewTime;
-	*i_Inc_View += *i_Day * rand() % (3 * (*i_Day));
+	*i_Inc_View += *i_Day * rand() % (4 * (*i_Day));
 	*i_Now_View = *i_Inc_View - *i_Dec_View;
 	*i_All_View += *i_Inc_View;
-	*i_Dec_View += *i_Day * rand() % (3 * (*i_Day));
+	*i_Dec_View += *i_Day * rand() % (2 * (*i_Day));
 	if (*i_Now_View >= 0)
 	{
 		gotoxy(5, 47);
@@ -187,7 +138,7 @@ int ONAIR_Dona_Loop(int* i_Dona, int* i_Now_Dona, int* i_All_Dona, int* i_Day)
 	printf("                                                  ");
 }
 
-int image(int* cnt2, FILE* fp2)
+int ONAIR_Image(int* cnt2, FILE* fp2)
 {
 	if (*cnt2 == 0)
 	{
