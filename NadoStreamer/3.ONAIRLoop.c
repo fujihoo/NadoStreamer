@@ -1,23 +1,20 @@
 #include "ONAIR.h"
 
-char* str[20][128];
-
 void gotoxy(int x, int y)
 
 {
-
 	COORD pos = { x,y };
 
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
 }
 
-int Renewer_chat(FILE* fp)
+void Renewer_chat(FILE* fp)
 {
-	int i;
-
-	for (i = 19; i > 0; --i)
+	for (int i = 19; i > 0; --i)
 	{
+		memset(str[i], ' ', 128);
+
 		if (str[i] == NULL)
 		{
 			continue;
@@ -28,15 +25,12 @@ int Renewer_chat(FILE* fp)
 		gotoxy(136, 22 - i);
 		printf("%s", str[i]);
 	}
-
 	fgets(str[0], sizeof(str[0]), fp);
 
 	gotoxy(136, 22);
 	printf("                                                              ");
 	gotoxy(136, 22);
 	printf("%s", str[0]);
-
-	return i;
 }
 
 //int Renewer_chat(FILE* fp)
@@ -133,6 +127,12 @@ int ONAIR_Viewer_Loop(int* i_Inc_View, int* i_Dec_View, int* i_Now_View, int* i_
 		gotoxy(5, 47);
 		printf("현재 시청자 수 : %d", *i_Now_View);
 	}
+	else
+	{
+		*i_Now_View = 0;
+		return *i_Now_View;
+	}
+	return 1;
 }
 
 int ONAIR_Chat_Loop(int* i_Day, FILE* fp)
@@ -150,6 +150,8 @@ int ONAIR_Chat_Loop(int* i_Day, FILE* fp)
 	}
 	OldTime = NewTime;
 	Renewer_chat(fp);
+
+	return 0;
 	/**cnt = Renewer_Chat(*cnt2, fp);
 	(*cnt)++;*/
 }
